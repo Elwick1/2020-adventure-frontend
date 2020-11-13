@@ -1,25 +1,44 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Link
+// } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
+const pages = 'http://localhost:3000/pages'
+
+export default class App extends React.Component {
+
+  state = {
+    pages : [],
+  }
+
+  componentDidMount() {
+    fetch(pages)
+    .then(res => res.json())
+    .then(pages => this.setState({
+       pages : pages
+    }))
+  }
+
+render () {
+return (
+  <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+            New Beginings
+            {console.log(this.state)}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1 className='content'> {this.state.pages.content}</h1>
+        <h1> {this.state.pages.path_id} </h1>
       </header>
     </div>
-  );
+);
+}
+  
+
 }
 
-export default App;
+
